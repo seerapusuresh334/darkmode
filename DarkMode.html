@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{
+                transition: background-color 0.3s, color 0.3s; 
+            }
+            .dark-mode{
+                background-color: #0d1021;
+                color: #fff;
+            }
+            .switch{
+                position: relative;
+                display: inline-block;
+                width: 60px;
+                height: 34px;
+            }
+            .switch input{
+                width: 0;
+                height: 0;
+                opacity: 0;
+            }
+            .slider{
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: 0.4s;
+            }
+            .slider::before{
+                position: absolute;
+                content: "";
+                height: 26px;
+                width: 26px;
+                top: 4px;
+                bottom: 4px;
+                background-color: #fff;
+                transition: 0.4s;
+            }
+            input:checked+.slider{
+                background-color: #2196F3;
+            }
+            input:focus+.slider{
+                box-shadow: 0 0 1px #2196F3;
+            }
+            input:checked+.slider:before{
+                transform: translateX(26px);
+            }
+            .slider.round{
+                border-radius: 34px;
+            }
+            .slider.round::before{
+                border-radius: 50%;
+            }
+            .dark-mode h1 {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <label class="switch">
+            <input type="checkbox" id="darkbutton">
+            <span class="slider round"></span>
+        </label>
+    </body>
+    <script>
+        const darkbutton = document.getElementById('darkbutton');
+        const body = document.body;
+        const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+        if(isDarkMode){
+            body.classList.add('dark-mode');
+            darkbutton.checked = true;
+        }
+        darkbutton.addEventListener('change',() => {
+            if(darkbutton.checked){
+                body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            }
+            else{
+                body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    </script>
+</html>
